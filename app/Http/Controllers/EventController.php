@@ -626,6 +626,46 @@ class EventController extends Controller
         return response()->json(['messages' => $messages], 200);
     }
 
+    public function delete_chat(Request $request, $id_event, $id_chat)
+    {
+        $event = Event::where('id', $id_event)->first();
+        if ($event === null) {
+            return response()->json([
+                'error' => 'Event not found'
+            ], 500);
+        }
+
+        $message = Message::where('id_event', $id_event)->find($id_chat);
+        if (!$message) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Message not found'
+            ], 404);
+        }
+
+        $message->delete();
+
+        // Pusher
+        $options = [
+            'cluster' => 'ap1',
+            'useTLS' => true,
+        ];
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $data['message'] = "Deleted";
+        $pusher->trigger('chatDelete', 'message.delete', $data);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Message deleted successfully'
+        ]);
+    }
+
     private function generateUniqueRandomString($length = 10)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

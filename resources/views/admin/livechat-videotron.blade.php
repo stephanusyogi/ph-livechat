@@ -11,9 +11,13 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
         rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('template/assets/vendors/sweetalert2/dist/sweetalert2.min.css') }}">
+
     <link rel="shortcut icon" href="{{ asset('images/user.jpg') }}" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pusher/7.0.3/pusher.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.11.1/echo.iife.min.js"></script>
+
 </head>
 <style>
     body {
@@ -94,6 +98,9 @@
     <div id="chat-container"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Sweetalert -->
+    <script src="{{ asset('template/assets/vendors/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Set background based on event properties
@@ -137,8 +144,6 @@
             style.innerHTML = bubbleArrowStyle + messageNameStyle + messageTimeStyle + messageTextStyle;
             document.head.appendChild(style);
 
-            Pusher.logToConsole = true;
-
             var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
                 cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
                 forceTLS: true
@@ -163,6 +168,18 @@
                                 renderMessage(message);
                             });
                             scrollToBottom();
+
+                            const speechWrappers = document.querySelectorAll('.speech-wrapper');
+
+                            speechWrappers.forEach(wrapper => {
+                                wrapper.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    const messageId = e.currentTarget.getAttribute(
+                                        'data-message-id');
+                                    console.log(messageId);
+                                    showDeleteConfirmation(messageId);
+                                });
+                            });
                         }
                     },
                     error: function() {
@@ -174,7 +191,7 @@
             // Function to render a message
             function renderMessage(message) {
                 const messageHtml = `
-                    <div class="speech-wrapper">
+                    <div class="speech-wrapper" data-message-id="${message.id}">
                         <div class="bubble" style="background-color: ${bubbleColor}">
                             <div class="txt">
                                 <p class="name" style="color: ${nameColor}">${message.sender_name}</p>
@@ -205,6 +222,88 @@
             // Fetch and display messages on load
             getMessagesSender();
             scrollToBottom();
+
+            function showDeleteConfirmation(messageId) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you really want to delete this message?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        deleteMessage(messageId);
+                    }
+                });
+            }
+
+            function deleteMessage(messageId) {
+                $.ajax({
+                    url: "{{ url('/events/livechat/delete-chat') }}/" + "{{ $event->id }}" + "/" +
+                        messageId,
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    method: "DELETE",
+                    success: function(response) {
+                        if (response.status) {
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                showCloseButton: true,
+                                allowEscapeKey: false,
+                                type: 'success',
+                                timer: 5000,
+                                title: "Deleted",
+                                customClass: {
+                                    popup: 'custom-swal-popup',
+                                    title: 'custom-swal-title',
+                                    icon: 'custom-swal-icon',
+                                }
+                            });
+                            getMessagesSender();
+                            scrollToBottom();
+                        } else {
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                showCloseButton: true,
+                                allowEscapeKey: false,
+                                type: 'error',
+                                timer: 5000,
+                                title: "Failed to delete the message.",
+                                customClass: {
+                                    popup: 'custom-swal-popup',
+                                    title: 'custom-swal-title',
+                                    icon: 'custom-swal-icon',
+                                }
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            showCloseButton: true,
+                            allowEscapeKey: false,
+                            type: 'error',
+                            timer: 5000,
+                            title: "Failed to delete the message.",
+                            customClass: {
+                                popup: 'custom-swal-popup',
+                                title: 'custom-swal-title',
+                                icon: 'custom-swal-icon',
+                            }
+                        });
+                    }
+                });
+            }
+
         });
     </script>
 </body>

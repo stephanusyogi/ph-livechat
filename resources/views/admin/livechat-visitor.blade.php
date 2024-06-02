@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('template/assets/vendors/sweetalert2/dist/sweetalert2.min.css') }}">
 
     <script src="{{ asset('template/assets/vendors/js/vendor.bundle.base.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pusher/7.0.3/pusher.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.11.1/echo.iife.min.js"></script>
 </head>
 <style>
     body {
@@ -563,6 +565,18 @@
                 }
             });
         }
+
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
+            forceTLS: true
+        });
+
+        var channel = pusher.subscribe('chatDelete');
+
+        channel.bind('message.delete', function(data) {
+            getMessagesSender();
+            scrollToBottom();
+        });
 
         // Function to set chat background
         function setChatBackground() {
