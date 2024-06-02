@@ -44,18 +44,18 @@
 
     .speech-wrapper .bubble .txt .name {
         font-weight: 600;
-        font-size: 12px;
+        font-size: 14px;
         margin: 0 0 4px;
         margin-bottom: 0px;
     }
 
     .speech-wrapper .bubble .txt .message {
-        font-size: 12px;
+        font-size: 14px;
         margin: 0;
     }
 
     .speech-wrapper .bubble .txt .timestamp {
-        font-size: 8px;
+        font-size: 10px;
         position: absolute;
         bottom: 8px;
         right: 10px;
