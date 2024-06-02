@@ -44,18 +44,18 @@
 
     .speech-wrapper .bubble .txt .name {
         font-weight: 600;
-        font-size: 14px;
+        font-size: 16px;
         margin: 0 0 4px;
         margin-bottom: 0px;
     }
 
     .speech-wrapper .bubble .txt .message {
-        font-size: 14px;
+        font-size: 16px;
         margin: 0;
     }
 
     .speech-wrapper .bubble .txt .timestamp {
-        font-size: 10px;
+        font-size: 11px;
         position: absolute;
         bottom: 8px;
         right: 10px;
@@ -201,7 +201,7 @@
                     <div class="speech-wrapper" data-message-id="${message.id}">
                         <div class="bubble" style="background-color: ${bubbleColor}">
                             <div class="txt">
-                                <p class="name" style="color: ${nameColor}">${message.sender_name}</p>
+                                <p class="name" style="color: ${nameColor}">${message.sender_name.toUpperCase()}</p>
                                 <p class="message" style="color: ${textColor}">${message.content}</p>
                                 <span class="timestamp" style="color: ${timeColor}">${formatTime(message.created_at)}</span>
                             </div>
