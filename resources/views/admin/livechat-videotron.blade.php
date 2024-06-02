@@ -22,7 +22,7 @@
 <style>
     body {
         margin: 0;
-        padding: 0;
+        padding: 1rem;
         font-family: "Poppins", sans-serif;
     }
 
@@ -44,18 +44,18 @@
 
     .speech-wrapper .bubble .txt .name {
         font-weight: 600;
-        font-size: 12px;
+        font-size: 16px;
         margin: 0 0 4px;
         margin-bottom: 0px;
     }
 
     .speech-wrapper .bubble .txt .message {
-        font-size: 12px;
+        font-size: 16px;
         margin: 0;
     }
 
     .speech-wrapper .bubble .txt .timestamp {
-        font-size: 8px;
+        font-size: 11px;
         position: absolute;
         bottom: 8px;
         right: 10px;
@@ -156,6 +156,13 @@
                 scrollToBottom();
             });
 
+            var channel = pusher.subscribe('chatDelete');
+
+            channel.bind('message.delete', function(data) {
+                getMessagesSender();
+                scrollToBottom();
+            });
+
             // Function to fetch messages
             function getMessagesSender() {
                 $.ajax({
@@ -194,7 +201,7 @@
                     <div class="speech-wrapper" data-message-id="${message.id}">
                         <div class="bubble" style="background-color: ${bubbleColor}">
                             <div class="txt">
-                                <p class="name" style="color: ${nameColor}">${message.sender_name}</p>
+                                <p class="name" style="color: ${nameColor}">${message.sender_name.toUpperCase()}</p>
                                 <p class="message" style="color: ${textColor}">${message.content}</p>
                                 <span class="timestamp" style="color: ${timeColor}">${formatTime(message.created_at)}</span>
                             </div>

@@ -6,7 +6,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PH - Livechat</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
