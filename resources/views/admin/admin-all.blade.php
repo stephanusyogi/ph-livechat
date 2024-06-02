@@ -177,6 +177,7 @@
                                                     <th>Full Name</th>
                                                     <th>Email</th>
                                                     <th>Username</th>
+                                                    <th>Type</th>
                                                     @if ($admin->hasRole('super'))
                                                         <th>Actice / Deleted</th>
                                                         <th>Created By</th>
@@ -377,6 +378,12 @@
                         searchable: true,
                     },
                     {
+                        data: 'type',
+                        name: 'type',
+                        orderable: true,
+                        searchable: true,
+                    },
+                    {
                         data: 'status',
                         name: 'status',
                         orderable: false,
@@ -427,6 +434,12 @@
                     {
                         data: 'username',
                         name: 'username',
+                        orderable: true,
+                        searchable: true,
+                    },
+                    {
+                        data: 'type',
+                        name: 'type',
                         orderable: true,
                         searchable: true,
                     },
