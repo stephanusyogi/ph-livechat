@@ -45,21 +45,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/events/start-livechat/{id}', [EventController::class, 'start_livechat'])->name('events.start-livechat');
     Route::get('/events/stop-livechat/{id}', [EventController::class, 'stop_livechat'])->name('events.stop-livechat');
 
+    Route::delete('/events/livechat/delete-chat/{id_event}/{id_chat}', [EventController::class, 'delete_chat'])->name('events.delete-livechat');
+
     Route::get('/events/history-livechat/{id}', [EventController::class, 'history_livechat'])->name('events.history-livechat');
 
     Route::get('/events/demo/videotron/{id}', [EventController::class, 'demo_videotron'])->name('events.demo-videotron');
     Route::get('/events/demo/visitor/{id}', [EventController::class, 'demo_visitor'])->name('events.demo-visitor');
+
+    Route::get('/events/livechat/videotron/{id}', [EventController::class, 'livechat_videotron'])->name('events.livechat-videotron');
+    Route::get('/events/livechat/get-videotron/{id}', [EventController::class, 'get_chat_videotron'])->name('events.get-chat-videotron');
 });
 
-
-Route::get('/events/livechat/videotron/{id}', [EventController::class, 'livechat_videotron'])->name('events.livechat-videotron');
-
 Route::get('/events/livechat/visitor/{id}', [EventController::class, 'livechat_visitor'])->name('events.livechat-visitor');
+Route::get('/events/livechat/get-visitor/{id}', [EventController::class, 'get_chat_visitor'])->name('events.get-chat-visitor');
 
 Route::post('/events/livechat/send/{id}', [EventController::class, 'send_chat'])->name('events.send-chat')->middleware('throttle:chat');
 
-Route::get('/events/livechat/get-visitor/{id}', [EventController::class, 'get_chat_visitor'])->name('events.get-chat-visitor');
 
-Route::get('/events/livechat/get-videotron/{id}', [EventController::class, 'get_chat_videotron'])->name('events.get-chat-videotron');
-
-Route::get('/events/test', [EventController::class, 'testPusher']);
+// Route::get('/events/test', [EventController::class, 'testPusher']);
