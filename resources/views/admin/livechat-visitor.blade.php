@@ -262,7 +262,7 @@
 
     .chat__conversation-sender_container {
         position: absolute;
-        top: -30px;
+        top: -70px;
     }
 
     .chat__conversation-sender_container .chat__conversation-sender {
