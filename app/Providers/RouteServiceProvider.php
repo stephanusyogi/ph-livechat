@@ -44,7 +44,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         RateLimiter::for('chat', function (Request $request) {
             $user = $request->user() ? $request->user()->id : $request->ip();
-            return Limit::perMinutes(1, 10)->by($user);
+            return Limit::perMinutes(5, 3)->by($user);
         });
     }
 }
