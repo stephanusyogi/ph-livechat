@@ -46,6 +46,22 @@
         .form-control:disabled {
             background-color: #2a3038 !important;
         }
+
+        input::placeholder {
+            color: #d6d6d6 !important;
+        }
+
+        input:focus {
+            color: #d6d6d6 !important;
+        }
+
+        select::placeholder {
+            color: #d6d6d6 !important;
+        }
+
+        select:focus {
+            color: #d6d6d6 !important;
+        }
     </style>
     @yield('custom_css')
 </head>

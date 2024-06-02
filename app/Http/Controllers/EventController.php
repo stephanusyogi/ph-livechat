@@ -51,6 +51,17 @@ class EventController extends Controller
                     $livechat = '<div>';
                     if ($item->flag_started === null) {
                         $livechat .= ' <a href="' . route('events.start-livechat', $item->id) . '" onclick="startLivechat(event,this)" class="btn btn-sm btn-success p-2 d-flex align-items-center justify-content-center" style="gap:5px;"><i class="mdi mdi-rocket mr-0"></i><p class="mb-0"><small> Start Livechat</small></p></a>';
+
+
+                        $livechat .= '
+                                <hr style="border:1px solid #fff;">
+                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary p-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><small>Demo</small></a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item py-1" href="' . route('events.demo-videotron', $item->id) . '" target="_blank"><small>Go To Videotron Display</small></a>
+                                    <a class="dropdown-item py-1" href="' . route('events.demo-visitor', $item->id) . '" target="_blank"><small>Go To Visitor Display</small></a>
+                                </div>
+                            </div>
+                        ';
                     } elseif ($item->flag_started) {
                         $livechat .= '
                             <div>
@@ -83,23 +94,23 @@ class EventController extends Controller
                                 </p>
                             </a>
                         ';
-                    }
 
-                    $livechat .= '
-                            <hr style="border:1px solid #fff;">
-                            <a href="javascript:void(0)" class="btn btn-sm btn-secondary p-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><small>Demo</small></a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item py-1" href="' . route('events.demo-videotron', $item->id) . '" target="_blank"><small>Go To Videotron Display</small></a>
-                                <a class="dropdown-item py-1" href="' . route('events.demo-visitor', $item->id) . '" target="_blank"><small>Go To Visitor Display</small></a>
+                        $livechat .= '
+                                <hr style="border:1px solid #fff;">
+                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary p-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><small>Demo</small></a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item py-1" href="' . route('events.demo-videotron', $item->id) . '" target="_blank"><small>Go To Videotron Display</small></a>
+                                    <a class="dropdown-item py-1" href="' . route('events.demo-visitor', $item->id) . '" target="_blank"><small>Go To Visitor Display</small></a>
+                                </div>
                             </div>
-                        </div>
-                    ';
+                        ';
+                    }
                     return $livechat;
                 })
                 ->addColumn('date_time', function ($item) {
                     $date_time = '
                         <div>
-                        <p>' . Carbon::parse($item->date)->format('l, Y-m-d') . '</p>
+                        <p>' . Carbon::parse($item->date)->format('l, Y-m-d') . ' <br> ' . Carbon::parse($item->start_time)->format('H:i') . ' - ' . Carbon::parse($item->end_time)->format('H:i') . '</p>
                         </div>
                     ';
                     return $date_time;
@@ -409,7 +420,9 @@ class EventController extends Controller
     {
         $url = route('events.livechat-visitor', $id);
         return response()->streamDownload(function () use ($url) {
-            echo QrCode::size(200)
+            echo QrCode::size(300)
+                ->margin(2)
+                ->errorCorrection('H')
                 ->format('png')
                 ->generate($url);
         }, 'qr-code.png', [

@@ -284,6 +284,9 @@
         margin-bottom: 0;
         font-size: 10px;
         color: #a9a9a9;
+        background-color: #2f2f2f;
+        padding: 5px;
+        border-radius: 5px;
     }
 
     @media only screen and (max-width: 600px) {
