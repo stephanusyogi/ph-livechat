@@ -59,7 +59,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/events/livechat/visitor/{id}', [EventController::class, 'livechat_visitor'])->name('events.livechat-visitor');
 Route::get('/events/livechat/get-visitor/{id}', [EventController::class, 'get_chat_visitor'])->name('events.get-chat-visitor');
 
-Route::post('/events/livechat/send/{id}', [EventController::class, 'send_chat'])->name('events.send-chat')->middleware('throttle:chat');
+// Route::post('/events/livechat/send/{id}', [EventController::class, 'send_chat'])->name('events.send-chat')->middleware('throttle:chat');
+Route::post('/events/livechat/send/{id}', [EventController::class, 'send_chat'])->name('events.send-chat');
 
 
 // Route::get('/events/test', [EventController::class, 'testPusher']);
