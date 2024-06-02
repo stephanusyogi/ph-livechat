@@ -102,11 +102,6 @@
     <!-- Sweetalert -->
     <script src="{{ asset('template/assets/vendors/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     <script>
-        document.addEventListener('keydown', function(event) {
-            if ((event.ctrlKey || event.metaKey) && (event.key === '+' || event.key === '-' || event.key === '=')) {
-                event.preventDefault();
-            }
-        })
         document.addEventListener("DOMContentLoaded", function() {
             // Set background based on event properties
             @if ($event->videotron_flag_background === 'image')
