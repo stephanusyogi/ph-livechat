@@ -156,6 +156,13 @@
                 scrollToBottom();
             });
 
+            var channel = pusher.subscribe('chatDelete');
+
+            channel.bind('message.delete', function(data) {
+                renderMessage(data.message);
+                scrollToBottom();
+            });
+
             // Function to fetch messages
             function getMessagesSender() {
                 $.ajax({
