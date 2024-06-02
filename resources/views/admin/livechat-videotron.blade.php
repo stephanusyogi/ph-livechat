@@ -159,7 +159,7 @@
             var channel = pusher.subscribe('chatDelete');
 
             channel.bind('message.delete', function(data) {
-                renderMessage(data.message);
+                getMessagesSender();
                 scrollToBottom();
             });
 
