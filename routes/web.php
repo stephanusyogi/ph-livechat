@@ -23,6 +23,10 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/chart/admin-count', [DashboardController::class, 'getAdminCount'])->name('chart.admin');
+    Route::get('/chart/event-count', [DashboardController::class, 'getEventCount'])->name('chart.event');
+    Route::get('/chart/events-by-month', [DashboardController::class, 'getEventsByMonth'])->name('chart.eventByMonth');
+
 
     Route::post('/my-profile/update/{id}', [AdminController::class, 'update_profile'])->name('my-profile.update');
 
