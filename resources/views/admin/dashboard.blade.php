@@ -38,6 +38,33 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Total Administrator</h4>
+                                    <canvas id="adminChart" style="height:250px"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Total Event</h4>
+                                    <canvas id="eventChart" style="height:250px"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Event By Month</h4>
+                                    <canvas id="eventMonthChart" style="height:130px"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- content-wrapper ends -->
@@ -55,13 +82,112 @@
 @section('custom_script')
     <!-- Plugin js for this page -->
     <script src="{{ asset('template/assets/vendors/chart.js/Chart.min.js') }}"></script>
-    <script src="{{ asset('template/assets/vendors/progressbar.js/progressbar.min.js') }}"></script>
-    <script src="{{ asset('template/assets/vendors/jvectormap/jquery-jvectormap.min.js') }}"></script>
-    <script src="{{ asset('template/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-    <script src="{{ asset('template/assets/vendors/owl-carousel-2/owl.carousel.min.js') }}"></script>
     <!-- End plugin js for this page -->
-
-    <!-- Custom js for this page -->
-    <script src="{{ asset('template/assets/js/dashboard.js') }}"></script>
-    <!-- End custom js for this page -->
+    <script>
+        $(document).ready(function() {
+            if ($("#adminChart").length) {
+                $.ajax({
+                    url: '{{ route('chart.admin') }}',
+                    method: 'GET',
+                    success: function(response) {
+                        var ctx = $("#adminChart").get(0).getContext("2d");
+                        var data = {
+                            labels: ["Basic", "Super"],
+                            datasets: [{
+                                data: [response.basic, response.super],
+                                backgroundColor: ['#FF6384', '#36A2EB'],
+                            }]
+                        };
+                        var options = {
+                            responsive: true,
+                            legend: {
+                                position: 'top',
+                            },
+                            animation: {
+                                animateScale: true,
+                                animateRotate: true
+                            }
+                        };
+                        new Chart(ctx, {
+                            type: 'doughnut',
+                            data: data,
+                            // options: options
+                        });
+                    }
+                });
+            }
+            if ($("#eventChart").length) {
+                $.ajax({
+                    url: '{{ route('chart.event') }}',
+                    method: 'GET',
+                    success: function(response) {
+                        var ctx = $("#eventChart").get(0).getContext("2d");
+                        var data = {
+                            labels: ["Total Events", "Finished Events", "Not Started Events"],
+                            datasets: [{
+                                data: [response.total, response.finished, response
+                                    .not_started
+                                ],
+                                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                            }]
+                        };
+                        var options = {
+                            responsive: true,
+                            legend: {
+                                position: 'top',
+                            },
+                            animation: {
+                                animateScale: true,
+                                animateRotate: true
+                            }
+                        };
+                        new Chart(ctx, {
+                            type: 'doughnut',
+                            data: data,
+                            options: options
+                        });
+                    }
+                });
+            }
+            if ($("#eventMonthChart").length) {
+                $.ajax({
+                    url: '{{ route('chart.eventByMonth') }}',
+                    method: 'GET',
+                    success: function(response) {
+                        var ctx = $("#eventMonthChart").get(0).getContext("2d");
+                        var data = {
+                            labels: ["January", "February", "March", "April", "May", "June", "July",
+                                "August", "September", "October", "November", "December"
+                            ],
+                            datasets: [{
+                                label: 'Events',
+                                data: Object.values(response),
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        };
+                        var options = {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            }
+                        };
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: data,
+                            options: options
+                        });
+                    }
+                });
+            }
+        })
+    </script>
 @endsection
