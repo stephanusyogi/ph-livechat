@@ -96,9 +96,9 @@
             <div class="bubble" style="background-color: {{ $event->bubble_color_code_message_background }}">
                 <div class="txt">
                     <p class="name" style="color: {{ $event->bubble_color_code_message_name }}">Alex</p>
-                    <p class="message" style="color: {{ $event->bubble_color_code_message_time }}">Hey Benni, the party
+                    <p class="message" style="color: {{ $event->bubble_color_code_message_text }}">Hey Benni, the party
                         is amazing! Did you try the punch?</p>
-                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_text }}">10:20 pm</span>
+                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_time }}">10:20 pm</span>
                 </div>
                 <div class="bubble-arrow"></div>
             </div>
@@ -108,9 +108,9 @@
             <div class="bubble" style="background-color: {{ $event->bubble_color_code_message_background }}">
                 <div class="txt">
                     <p class="name" style="color: {{ $event->bubble_color_code_message_name }}">Benni</p>
-                    <p class="message" style="color: {{ $event->bubble_color_code_message_time }}">Yeah, Alex! The punch
+                    <p class="message" style="color: {{ $event->bubble_color_code_message_text }}">Yeah, Alex! The punch
                         is great. Have you seen Jordan?</p>
-                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_text }}">10:21 pm</span>
+                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_time }}">10:21 pm</span>
                 </div>
                 <div class="bubble-arrow"></div>
             </div>
@@ -120,9 +120,9 @@
             <div class="bubble" style="background-color: {{ $event->bubble_color_code_message_background }}">
                 <div class="txt">
                     <p class="name" style="color: {{ $event->bubble_color_code_message_name }}">Jordan</p>
-                    <p class="message" style="color: {{ $event->bubble_color_code_message_time }}">I'm here, guys! Just
+                    <p class="message" style="color: {{ $event->bubble_color_code_message_text }}">I'm here, guys! Just
                         dancing with Taylor. This DJ rocks!</p>
-                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_text }}">10:22 pm</span>
+                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_time }}">10:22 pm</span>
                 </div>
                 <div class="bubble-arrow"></div>
             </div>
@@ -132,9 +132,9 @@
             <div class="bubble" style="background-color: {{ $event->bubble_color_code_message_background }}">
                 <div class="txt">
                     <p class="name" style="color: {{ $event->bubble_color_code_message_name }}">Taylor</p>
-                    <p class="message" style="color: {{ $event->bubble_color_code_message_time }}">Totally! The music
+                    <p class="message" style="color: {{ $event->bubble_color_code_message_text }}">Totally! The music
                         is fantastic. Who organized this party?</p>
-                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_text }}">10:23 pm</span>
+                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_time }}">10:23 pm</span>
                 </div>
                 <div class="bubble-arrow"></div>
             </div>
@@ -144,9 +144,9 @@
             <div class="bubble" style="background-color: {{ $event->bubble_color_code_message_background }}">
                 <div class="txt">
                     <p class="name" style="color: {{ $event->bubble_color_code_message_name }}">Sam</p>
-                    <p class="message" style="color: {{ $event->bubble_color_code_message_time }}">I think it was Chris
+                    <p class="message" style="color: {{ $event->bubble_color_code_message_text }}">I think it was Chris
                         and Jamie. They did an awesome job!</p>
-                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_text }}">10:24 pm</span>
+                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_time }}">10:24 pm</span>
                 </div>
                 <div class="bubble-arrow"></div>
             </div>
@@ -156,9 +156,9 @@
             <div class="bubble" style="background-color: {{ $event->bubble_color_code_message_background }}">
                 <div class="txt">
                     <p class="name" style="color: {{ $event->bubble_color_code_message_name }}">Chris</p>
-                    <p class="message" style="color: {{ $event->bubble_color_code_message_time }}">Thanks, Sam! We
+                    <p class="message" style="color: {{ $event->bubble_color_code_message_text }}">Thanks, Sam! We
                         wanted everyone to have a blast.</p>
-                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_text }}">10:25 pm</span>
+                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_time }}">10:25 pm</span>
                 </div>
                 <div class="bubble-arrow"></div>
             </div>
@@ -168,9 +168,9 @@
             <div class="bubble" style="background-color: {{ $event->bubble_color_code_message_background }}">
                 <div class="txt">
                     <p class="name" style="color: {{ $event->bubble_color_code_message_name }}">Jamie</p>
-                    <p class="message" style="color: {{ $event->bubble_color_code_message_time }}">Glad you all are
+                    <p class="message" style="color: {{ $event->bubble_color_code_message_text }}">Glad you all are
                         enjoying it. Have you tried the snacks?</p>
-                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_text }}">10:26 pm</span>
+                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_time }}">10:26 pm</span>
                 </div>
                 <div class="bubble-arrow"></div>
             </div>
@@ -180,10 +180,10 @@
             <div class="bubble" style="background-color: {{ $event->bubble_color_code_message_background }}">
                 <div class="txt">
                     <p class="name" style="color: {{ $event->bubble_color_code_message_name }}">Morgan</p>
-                    <p class="message" style="color: {{ $event->bubble_color_code_message_time }}">Yes, the snacks
+                    <p class="message" style="color: {{ $event->bubble_color_code_message_text }}">Yes, the snacks
                         are
                         delicious! Who made the cupcakes?</p>
-                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_text }}">10:27
+                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_time }}">10:27
                         pm</span>
                 </div>
                 <div class="bubble-arrow"></div>
@@ -194,9 +194,9 @@
             <div class="bubble" style="background-color: {{ $event->bubble_color_code_message_background }}">
                 <div class="txt">
                     <p class="name" style="color: {{ $event->bubble_color_code_message_name }}">Casey</p>
-                    <p class="message" style="color: {{ $event->bubble_color_code_message_time }}">Reese made them.
+                    <p class="message" style="color: {{ $event->bubble_color_code_message_text }}">Reese made them.
                         They're so good, right?</p>
-                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_text }}">10:28
+                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_time }}">10:28
                         pm</span>
                 </div>
                 <div class="bubble-arrow"></div>
@@ -207,9 +207,9 @@
             <div class="bubble" style="background-color: {{ $event->bubble_color_code_message_background }}">
                 <div class="txt">
                     <p class="name" style="color: {{ $event->bubble_color_code_message_name }}">Reese</p>
-                    <p class="message" style="color: {{ $event->bubble_color_code_message_time }}">Thanks, everyone!
+                    <p class="message" style="color: {{ $event->bubble_color_code_message_text }}">Thanks, everyone!
                         I'm glad you like them. Let's keep the party going!</p>
-                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_text }}">10:29
+                    <span class="timestamp" style="color: {{ $event->bubble_color_code_message_time }}">10:29
                         pm</span>
                 </div>
                 <div class="bubble-arrow"></div>
