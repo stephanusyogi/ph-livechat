@@ -111,7 +111,7 @@ class EventController extends Controller
                 ->addColumn('date_time', function ($item) {
                     $date_time = '
                         <div>
-                        <p>' . Carbon::parse($item->date)->format('l, Y-m-d') . ' <br> ' . Carbon::parse($item->start_time)->format('H:i') . ' - ' . Carbon::parse($item->end_time)->format('H:i') . '</p>
+                        <p>' . Carbon::parse($item->date)->format('l, Y-m-d') . ' <br> ' . Carbon::parse($item->time_start)->format('H:i') . ' - ' . Carbon::parse($item->time_end)->format('H:i') . '</p>
                         </div>
                     ';
                     return $date_time;
