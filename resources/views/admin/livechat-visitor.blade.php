@@ -433,19 +433,11 @@
             showAlert('Sender name must be filled.');
         }
 
-
         // Function to send a message
         function sendMessage(event, form) {
             event.preventDefault();
 
-            if (senderNameInput.value.trim() === '') {
-                showAlert('Sender name must be filled.');
-                form.reset();
-                return;
-            }
-
-            if (contentInput.value.trim() === '') {
-                showAlert('Message must not be empty.');
+            if (!validateForm()) {
                 return;
             }
 
@@ -486,8 +478,7 @@
                                 });
                             }
                         } catch (e) {
-                            console.error('Error parsing JSON:', e);
-                            console.error('Original error message:', error.message);
+                            console.error('Error:', error);
                         }
                     }
                 });
@@ -583,6 +574,31 @@
                     icon: 'custom-swal-icon',
                 }
             });
+        }
+
+        function validateForm() {
+            let isValid = true;
+
+            const senderName = $('input[name="sender_name"]').val().trim();
+            const content = $('input[name="content"]').val().trim();
+
+            if (senderName === '') {
+                showAlert('Sender name must be filled.');
+                isValid = false;
+            } else if (senderName.length > 20) {
+                showAlert('Sender name must not exceed 20 characters.');
+                isValid = false;
+            }
+
+            if (content === '') {
+                showAlert('Message must not be empty.');
+                isValid = false;
+            } else if (content.length > 100) {
+                showAlert('Message must not exceed 100 characters.');
+                isValid = false;
+            }
+
+            return isValid;
         }
 
         var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {

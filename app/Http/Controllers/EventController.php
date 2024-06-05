@@ -545,10 +545,8 @@ class EventController extends Controller
     {
         // Validate the request
         $validator = Validator::make($request->all(), [
-            'sender_name' => 'required|boolean',
-            'content' => 'required|boolean',
-            // 'sender_name' => 'required|string|max:255',
-            // 'content' => 'required|string|max:1000',
+            'sender_name' => 'required|string|max:20',
+            'content' => 'required|string|max:100',
         ]);
 
         if ($validator->fails()) {
