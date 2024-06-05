@@ -458,7 +458,12 @@
                     if (!response.ok) {
                         if (response.status === 429) {
                             throw new Error('Too Many Requests');
+                        } else if (response.status === 422) {
+                            return response.json().then(data => {
+                                throw new Error(JSON.stringify(data.errors));
+                            });
                         }
+
                         throw new Error('Network response was not ok');
                     }
                     return response.json();
@@ -473,19 +478,17 @@
                         showAlert(
                             'You have reached the maximum number of messages. Please wait 5 minutes and try again.');
                     } else {
-                        const errors = JSON.parse(error.message);
-                        console.log(errors);
-                        // try {
-                        //     const errors = JSON.parse(error.message);
-                        //     console.log(errors);
-                        //     for (const field in errors) {
-                        //         errors[field].forEach(errorMessage => {
-                        //             showAlert(errorMessage);
-                        //         });
-                        //     }
-                        // } catch (e) {
-                        //     console.error('Error:', error);
-                        // }
+                        try {
+                            const errors = JSON.parse(error.message);
+                            for (const field in errors) {
+                                errors[field].forEach(errorMessage => {
+                                    showAlert(errorMessage);
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Error parsing JSON:', e);
+                            console.error('Original error message:', error.message);
+                        }
                     }
                 });
         }
