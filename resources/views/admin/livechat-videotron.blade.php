@@ -43,13 +43,14 @@
     }
 
     .speech-wrapper .bubble .txt .name {
-        font-weight: 600;
+        font-weight: 900;
         font-size: 16px;
         margin: 0 0 4px;
         margin-bottom: 0px;
     }
 
     .speech-wrapper .bubble .txt .message {
+        font-weight: 600;
         font-size: 16px;
         margin: 0;
         white-space: wrap;
@@ -185,7 +186,6 @@
                                     e.preventDefault();
                                     const messageId = e.currentTarget.getAttribute(
                                         'data-message-id');
-                                    console.log(messageId);
                                     showDeleteConfirmation(messageId);
                                 });
                             });
