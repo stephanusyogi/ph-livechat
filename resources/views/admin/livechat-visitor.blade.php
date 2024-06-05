@@ -473,17 +473,19 @@
                         showAlert(
                             'You have reached the maximum number of messages. Please wait 5 minutes and try again.');
                     } else {
-                        try {
-                            const errors = JSON.parse(error.message);
-                            console.log(errors);
-                            for (const field in errors) {
-                                errors[field].forEach(errorMessage => {
-                                    showAlert(errorMessage);
-                                });
-                            }
-                        } catch (e) {
-                            console.error('Error:', error);
-                        }
+                        const errors = JSON.parse(error.message);
+                        console.log(errors);
+                        // try {
+                        //     const errors = JSON.parse(error.message);
+                        //     console.log(errors);
+                        //     for (const field in errors) {
+                        //         errors[field].forEach(errorMessage => {
+                        //             showAlert(errorMessage);
+                        //         });
+                        //     }
+                        // } catch (e) {
+                        //     console.error('Error:', error);
+                        // }
                     }
                 });
         }
