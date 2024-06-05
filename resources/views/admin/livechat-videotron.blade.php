@@ -52,6 +52,8 @@
     .speech-wrapper .bubble .txt .message {
         font-size: 16px;
         margin: 0;
+        white-space: wrap;
+        word-break: break-all;
     }
 
     .speech-wrapper .bubble .txt .timestamp {
