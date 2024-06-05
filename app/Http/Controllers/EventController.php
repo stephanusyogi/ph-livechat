@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Yajra\DataTables\Facades\DataTables;
 use Pusher\Pusher;
@@ -542,6 +543,21 @@ class EventController extends Controller
 
     public function send_chat(Request $request, $id)
     {
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'sender_name' => 'required|boolean',
+            'content' => 'required|boolean',
+            // 'sender_name' => 'required|string|max:255',
+            // 'content' => 'required|string|max:1000',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
         $event = Event::where('id', $id)->first();
         if ($event === null) {
             return response()->json([
