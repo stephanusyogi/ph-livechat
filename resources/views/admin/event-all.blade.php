@@ -204,6 +204,9 @@
                         name: 'action',
                         orderable: false,
                         searchable: false,
+                        render: function(data, type, full, meta) {
+                            return type === 'display' ? $('<div/>').html(data).text() : data;
+                        }
                     },
                     {
                         data: 'livechat',
@@ -272,12 +275,18 @@
                         name: 'action',
                         orderable: false,
                         searchable: false,
+                        render: function(data, type, full, meta) {
+                            return type === 'display' ? $('<div/>').html(data).text() : data;
+                        }
                     },
                     {
                         data: 'livechat',
                         name: 'livechat',
                         orderable: false,
                         searchable: false,
+                        render: function(data, type, full, meta) {
+                            return type === 'display' ? $('<div/>').html(data).text() : data;
+                        }
                     },
                     {
                         data: 'name',
