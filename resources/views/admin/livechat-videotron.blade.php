@@ -34,7 +34,7 @@
         width: 280px;
         height: auto;
         display: block;
-        border-radius: 4px;
+        border-radius: 20px;
         position: relative;
     }
 
