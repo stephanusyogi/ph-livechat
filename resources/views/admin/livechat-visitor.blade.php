@@ -468,7 +468,7 @@
                     form.reset();
                     if (error.message === 'Too Many Requests') {
                         showAlert(
-                            'You have reached the maximum number of messages. Please wait 5 minutes and try again.');
+                            'You have reached the maximum number of messages. Please wait 2 minutes and try again.');
                     } else {
                         try {
                             const errors = JSON.parse(error.message);

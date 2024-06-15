@@ -40,9 +40,7 @@ class EventController extends Controller
                         } else {
                             $action = '
                                 <a href="javascript:void(0)"
-                                class="btn btn-danger"
-                                data-toggle="tooltip" data-placement="top"
-                                title="Click to Restore This Event"><small>Inactive</small></a>
+                                class="btn btn-danger"><small>Inactive</small></a>
                             ';
                         }
                     } else {
@@ -79,9 +77,7 @@ class EventController extends Controller
                         } else {
                             $livechat = '
                                 <a href="javascript:void(0)"
-                                class="btn btn-danger"
-                                data-toggle="tooltip" data-placement="top"
-                                title="Click to Restore This Event"><small>Inactive</small></a>
+                                class="btn btn-danger"><small>Inactive</small></a>
                             ';
                         }
                     } else {
