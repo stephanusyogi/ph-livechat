@@ -62,10 +62,11 @@
     }
 
     .speech-wrapper .bubble .bubble-arrow {
+        z-index: -1;
         position: absolute;
         width: 0;
         bottom: 42px;
-        left: -16px;
+        left: -10px;
         height: 0;
     }
 
@@ -79,9 +80,9 @@
         content: "";
         position: absolute;
         border-radius: 0 20px 0;
-        width: 24px;
-        height: 37px;
-        transform: rotate(154deg);
+        width: 22px;
+        height: 33px;
+        transform: rotate(161deg);
     }
 
     .speech-wrapper .bubble .bubble-arrow.alt:after {

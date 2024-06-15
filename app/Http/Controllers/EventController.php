@@ -27,84 +27,120 @@ class EventController extends Controller
             $events = (!$admin->hasRole('super')) ? Event::get() : Event::withTrashed()->get();
             return DataTables::of($events)
                 ->addIndexColumn()
-                ->addColumn('action', function ($item) {
-                    $action = '
-                        <div>
-                            <a href="' . route('events.detail', $item->id) . '" class="btn btn-warning text-white m-1" data-toggle="tooltip" data-placement="top"
-                            title="Go to Detail">
-                            <i class="mdi mdi-eye" style="margin-right:unset!important;"></i>
-                            </a>
-                    ';
-                    if (!$item->deleted_at) {
-                        $action .= '
-                        <br>
-                            <a onclick="deleteEvent(event,this)" href="' . route('events.delete', $item->id) . '"
-                                class="btn btn-danger text-white m-1" data-toggle="tooltip" data-placement="top"
-                                title="Delete This Event">
-                                <i class="mdi mdi-trash-can" style="margin-right:unset!important;"></i>
-                            </a>
+                ->addColumn('action', function ($item) use ($admin) {
+                    $action = '<div>';
+                    if ($item->deleted_at) {
+                        if ($admin->type == 'super') {
+                            $action = '
+                                <a onclick="restoreEvent(event,this)" href="' . url('/events/restore/' . $item->id) . '"
+                                class="btn btn-danger"
+                                data-toggle="tooltip" data-placement="top"
+                                title="Click to Restore This Event"><small>Inactive</small></a>
+                            ';
+                        } else {
+                            $action = '
+                                <a href="javascript:void(0)"
+                                class="btn btn-danger"
+                                data-toggle="tooltip" data-placement="top"
+                                title="Click to Restore This Event"><small>Inactive</small></a>
+                            ';
+                        }
+                    } else {
+                        $action = '
+                                <a href="' . route('events.detail', $item->id) . '" class="btn btn-warning text-white m-1" data-toggle="tooltip" data-placement="top"
+                                title="Go to Detail">
+                                <i class="mdi mdi-eye" style="margin-right:unset!important;"></i>
+                                </a>
                         ';
+                        if (!$item->deleted_at) {
+                            $action .= '
+                            <br>
+                                <a onclick="deleteEvent(event,this)" href="' . route('events.delete', $item->id) . '"
+                                    class="btn btn-danger text-white m-1" data-toggle="tooltip" data-placement="top"
+                                    title="Delete This Event">
+                                    <i class="mdi mdi-trash-can" style="margin-right:unset!important;"></i>
+                                </a>
+                            ';
+                        }
                     }
                     $action .= '</div>';
                     return $action;
                 })
-                ->addColumn('livechat', function ($item) {
+                ->addColumn('livechat', function ($item) use ($admin) {
                     $livechat = '<div>';
-                    if ($item->flag_started === null) {
-                        $livechat .= ' <a href="' . route('events.start-livechat', $item->id) . '" onclick="startLivechat(event,this)" class="btn btn-sm btn-success p-2 d-flex align-items-center justify-content-center" style="gap:5px;"><i class="mdi mdi-rocket mr-0"></i><p class="mb-0"><small> Start Livechat</small></p></a>';
-
-
-                        $livechat .= '
-                                <hr style="border:1px solid #fff;">
-                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary p-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><small>Demo</small></a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item py-1" href="' . route('events.demo-videotron', $item->id) . '" target="_blank"><small>Go To Videotron Display</small></a>
-                                    <a class="dropdown-item py-1" href="' . route('events.demo-visitor', $item->id) . '" target="_blank"><small>Go To Visitor Display</small></a>
-                                </div>
-                            </div>
-                        ';
-                    } elseif ($item->flag_started) {
-                        $livechat .= '
-                            <div>
-                                <a href="javascript:void(0)" class="btn btn-info p-2 dropdown-toggle m-1"
-                                    data-toggle="dropdown" aria-expanded="false"><small>Livechat Started</small></a>
-                                <div class="dropdown-menu mt-1">
-                                    <a class="dropdown-item py-1"
-                                        href="' . route('events.livechat-videotron', $item->id) . '"
-                                        target="_blank"><small>Go To Videotron Display</small></a>
-                                    <a class="dropdown-item py-1"
-                                        href="' . route('events.livechat-visitor', $item->id) . '"
-                                        target="_blank"><small>Go To Visitor Display</small></a>
-                                </div>
-                            </div>
-                            <a onclick="btnStopLivechat(event,this)"  href="' . route('events.stop-livechat', $item->id) . '"
-                                class="btn btn-danger p-2 d-flex align-items-center m-1 justify-content-center" style="gap:5px;"><i
-                                    class="mdi mdi-close-network mr-0"></i>
-                                <p class="mb-0">
-                                    <small>Stop Livechat</small>
-                                </p>
-                            </a>
-                        ';
+                    if ($item->deleted_at) {
+                        if ($admin->type == 'super') {
+                            $livechat = '
+                                <a onclick="restoreEvent(event,this)" href="' . url('/events/restore/' . $item->id) . '"
+                                class="btn btn-danger"
+                                data-toggle="tooltip" data-placement="top"
+                                title="Click to Restore This Event"><small>Inactive</small></a>
+                            ';
+                        } else {
+                            $livechat = '
+                                <a href="javascript:void(0)"
+                                class="btn btn-danger"
+                                data-toggle="tooltip" data-placement="top"
+                                title="Click to Restore This Event"><small>Inactive</small></a>
+                            ';
+                        }
                     } else {
-                        $livechat .= '
-                            <a onclick="btnHistoryLivechat(event,this)" href="' . route('events.history-livechat', $item->id) . '"
-                                class="btn btn-info p-2 d-flex align-items-center" style="gap:5px;"><i
-                                    class="mdi mdi-history mr-0"></i>
-                                <p class="mb-0">
-                                    <small>See History Livechat</small>
-                                </p>
-                            </a>
-                        ';
+                        if ($item->flag_started === null) {
+                            $livechat .= ' <a href="' . route('events.start-livechat', $item->id) . '" onclick="startLivechat(event,this)" class="btn btn-sm btn-success p-2 d-flex align-items-center justify-content-center" style="gap:5px;"><i class="mdi mdi-rocket mr-0"></i><p class="mb-0"><small> Start Livechat</small></p></a>';
 
-                        $livechat .= '
-                                <hr style="border:1px solid #fff;">
-                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary p-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><small>Demo</small></a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item py-1" href="' . route('events.demo-videotron', $item->id) . '" target="_blank"><small>Go To Videotron Display</small></a>
-                                    <a class="dropdown-item py-1" href="' . route('events.demo-visitor', $item->id) . '" target="_blank"><small>Go To Visitor Display</small></a>
+
+                            $livechat .= '
+                                    <hr style="border:1px solid #fff;">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-secondary p-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><small>Demo</small></a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item py-1" href="' . route('events.demo-videotron', $item->id) . '" target="_blank"><small>Go To Videotron Display</small></a>
+                                        <a class="dropdown-item py-1" href="' . route('events.demo-visitor', $item->id) . '" target="_blank"><small>Go To Visitor Display</small></a>
+                                    </div>
                                 </div>
-                            </div>
-                        ';
+                            ';
+                        } elseif ($item->flag_started) {
+                            $livechat .= '
+                                <div>
+                                    <a href="javascript:void(0)" class="btn btn-info p-2 dropdown-toggle m-1"
+                                        data-toggle="dropdown" aria-expanded="false"><small>Livechat Started</small></a>
+                                    <div class="dropdown-menu mt-1">
+                                        <a class="dropdown-item py-1"
+                                            href="' . route('events.livechat-videotron', $item->id) . '"
+                                            target="_blank"><small>Go To Videotron Display</small></a>
+                                        <a class="dropdown-item py-1"
+                                            href="' . route('events.livechat-visitor', $item->id) . '"
+                                            target="_blank"><small>Go To Visitor Display</small></a>
+                                    </div>
+                                </div>
+                                <a onclick="btnStopLivechat(event,this)"  href="' . route('events.stop-livechat', $item->id) . '"
+                                    class="btn btn-danger p-2 d-flex align-items-center m-1 justify-content-center" style="gap:5px;"><i
+                                        class="mdi mdi-close-network mr-0"></i>
+                                    <p class="mb-0">
+                                        <small>Stop Livechat</small>
+                                    </p>
+                                </a>
+                            ';
+                        } else {
+                            $livechat .= '
+                                <a onclick="btnHistoryLivechat(event,this)" href="' . route('events.history-livechat', $item->id) . '"
+                                    class="btn btn-info p-2 d-flex align-items-center" style="gap:5px;"><i
+                                        class="mdi mdi-history mr-0"></i>
+                                    <p class="mb-0">
+                                        <small>See History Livechat</small>
+                                    </p>
+                                </a>
+                            ';
+
+                            $livechat .= '
+                                    <hr style="border:1px solid #fff;">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-secondary p-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><small>Demo</small></a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item py-1" href="' . route('events.demo-videotron', $item->id) . '" target="_blank"><small>Go To Videotron Display</small></a>
+                                        <a class="dropdown-item py-1" href="' . route('events.demo-visitor', $item->id) . '" target="_blank"><small>Go To Visitor Display</small></a>
+                                    </div>
+                                </div>
+                            ';
+                        }
                     }
                     return $livechat;
                 })
