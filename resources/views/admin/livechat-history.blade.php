@@ -28,7 +28,7 @@
         width: 280px;
         height: auto;
         display: block;
-        border-radius: 4px;
+        border-radius: 20px;
         position: relative;
     }
 
@@ -37,19 +37,22 @@
     }
 
     .speech-wrapper .bubble .txt .name {
-        font-weight: 600;
-        font-size: 12px;
+        font-weight: 900;
+        font-size: 16px;
         margin: 0 0 4px;
         margin-bottom: 0px;
     }
 
     .speech-wrapper .bubble .txt .message {
-        font-size: 12px;
+        font-weight: 600;
+        font-size: 16px;
         margin: 0;
+        white-space: wrap;
+        word-break: break-all;
     }
 
     .speech-wrapper .bubble .txt .timestamp {
-        font-size: 8px;
+        font-size: 12px;
         position: absolute;
         bottom: 8px;
         right: 10px;
@@ -57,10 +60,11 @@
     }
 
     .speech-wrapper .bubble .bubble-arrow {
+        z-index: -1;
         position: absolute;
         width: 0;
         bottom: 42px;
-        left: -16px;
+        left: -10px;
         height: 0;
     }
 
@@ -74,9 +78,9 @@
         content: "";
         position: absolute;
         border-radius: 0 20px 0;
-        width: 24px;
-        height: 37px;
-        transform: rotate(154deg);
+        width: 22px;
+        height: 33px;
+        transform: rotate(161deg);
     }
 
     .speech-wrapper .bubble .bubble-arrow.alt:after {
