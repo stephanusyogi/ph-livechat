@@ -107,6 +107,10 @@
     <script src="{{ asset('template/assets/vendors/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Fetch and display messages on load
+            getMessagesSender();
+            scrollToBottom();
+
             // Set background based on event properties
             @if ($event->videotron_flag_background === 'image')
                 document.body.style.background =
@@ -228,10 +232,6 @@
                     minute: '2-digit'
                 });
             }
-
-            // Fetch and display messages on load
-            getMessagesSender();
-            scrollToBottom();
 
             document.getElementById('chat-container').addEventListener('click', function(e) {
                 if (e.target.closest('.speech-wrapper')) {
