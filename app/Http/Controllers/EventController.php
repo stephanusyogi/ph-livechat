@@ -641,7 +641,7 @@ class EventController extends Controller
         );
 
         $data['message'] = $message;
-        $pusher->trigger('chat', 'message.sent', $data);
+        $pusher->trigger('chat-' . $id, 'message.sent', $data);
 
         return response()->json([
             'status' => true,
@@ -717,7 +717,7 @@ class EventController extends Controller
         );
 
         $data['message'] = "Deleted";
-        $pusher->trigger('chatDelete', 'message.delete', $data);
+        $pusher->trigger('chatDelete-' . $id_event, 'message.delete', $data);
 
         return response()->json([
             'status' => true,

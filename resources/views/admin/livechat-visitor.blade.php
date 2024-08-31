@@ -606,7 +606,7 @@
             forceTLS: true
         });
 
-        var channel = pusher.subscribe('chatDelete');
+        var channel = pusher.subscribe('chatDelete-' + '{{ $event->id }}');
 
         channel.bind('message.delete', function(data) {
             getMessagesSender();
