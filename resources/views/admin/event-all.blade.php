@@ -230,6 +230,15 @@
                     }
                 },
                 {
+                    data: 'status_start_stop',
+                    name: 'status_start_stop',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, full, meta) {
+                        return type === 'display' ? $('<div/>').html(data).text() : data;
+                    }
+                },
+                {
                     data: 'renmark',
                     name: 'renmark',
                     orderable: false,
@@ -239,8 +248,8 @@
                     }
                 },
                 {
-                    data: 'status_start_stop',
-                    name: 'status_start_stop',
+                    data: 'status_deleted',
+                    name: 'status_deleted',
                     orderable: false,
                     searchable: false,
                     render: function(data, type, full, meta) {
