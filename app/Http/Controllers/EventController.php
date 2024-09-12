@@ -24,25 +24,13 @@ class EventController extends Controller
         $url = '/events';
 
         if (request()->ajax()) {
-            $events = (!$admin->hasRole('super')) ? Event::get() : Event::withTrashed()->get();
+            $events = Event::withTrashed()->get();
             return DataTables::of($events)
                 ->addIndexColumn()
                 ->addColumn('action', function ($item) use ($admin) {
                     $action = '<div>';
                     if ($item->deleted_at) {
-                        if ($admin->type == 'super') {
-                            $action = '
-                                <a onclick="restoreEvent(event,this)" href="' . url('/events/restore/' . $item->id) . '"
-                                class="btn btn-danger"
-                                data-toggle="tooltip" data-placement="top"
-                                title="Click to Restore This Event"><small>Inactive</small></a>
-                            ';
-                        } else {
-                            $action = '
-                                <a href="javascript:void(0)"
-                                class="btn btn-danger"><small>Inactive</small></a>
-                            ';
-                        }
+                        $action .= '-';
                     } else {
                         $action = '
                                 <a href="' . route('events.detail', $item->id) . '" class="btn btn-warning text-white m-1" data-toggle="tooltip" data-placement="top"
@@ -50,41 +38,28 @@ class EventController extends Controller
                                 <i class="mdi mdi-eye" style="margin-right:unset!important;"></i>
                                 </a>
                         ';
-                        if (!$item->deleted_at) {
-                            $action .= '
-                            <br>
-                                <a onclick="deleteEvent(event,this)" href="' . route('events.delete', $item->id) . '"
-                                    class="btn btn-danger text-white m-1" data-toggle="tooltip" data-placement="top"
-                                    title="Delete This Event">
-                                    <i class="mdi mdi-trash-can" style="margin-right:unset!important;"></i>
-                                </a>
-                            ';
-                        }
+                        $action .= '
+                        <br>
+                            <a onclick="deleteEvent(event,this)" href="' . route('events.delete', $item->id) . '"
+                                class="btn btn-danger text-white m-1" data-toggle="tooltip" data-placement="top"
+                                title="Delete This Event">
+                                <i class="mdi mdi-trash-can" style="margin-right:unset!important;"></i>
+                            </a>
+                        ';
                     }
                     $action .= '</div>';
                     return $action;
                 })
                 ->addColumn('livechat', function ($item) use ($admin) {
                     $livechat = '<div>';
+
                     if ($item->deleted_at) {
-                        if ($admin->type == 'super') {
-                            $livechat = '
-                                <a onclick="restoreEvent(event,this)" href="' . url('/events/restore/' . $item->id) . '"
-                                class="btn btn-danger"
-                                data-toggle="tooltip" data-placement="top"
-                                title="Click to Restore This Event"><small>Inactive</small></a>
-                            ';
-                        } else {
-                            $livechat = '
-                                <a href="javascript:void(0)"
-                                class="btn btn-danger"><small>Inactive</small></a>
-                            ';
-                        }
+                        $livechat .= '
+                            -
+                        ';
                     } else {
                         if ($item->flag_started === null) {
                             $livechat .= ' <a href="' . route('events.start-livechat', $item->id) . '" onclick="startLivechat(event,this)" class="btn btn-sm btn-success p-2 d-flex align-items-center justify-content-center" style="gap:5px;"><i class="mdi mdi-rocket mr-0"></i><p class="mb-0"><small> Start Livechat</small></p></a>';
-
-
                             $livechat .= '
                                     <hr style="border:1px solid #fff;">
                                     <a href="javascript:void(0)" class="btn btn-sm btn-secondary p-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><small>Demo</small></a>
@@ -92,7 +67,6 @@ class EventController extends Controller
                                         <a class="dropdown-item py-1" href="' . route('events.demo-videotron', $item->id) . '" target="_blank"><small>Go To Videotron Display</small></a>
                                         <a class="dropdown-item py-1" href="' . route('events.demo-visitor', $item->id) . '" target="_blank"><small>Go To Visitor Display</small></a>
                                     </div>
-                                </div>
                             ';
                         } elseif ($item->flag_started) {
                             $livechat .= '
@@ -134,10 +108,11 @@ class EventController extends Controller
                                         <a class="dropdown-item py-1" href="' . route('events.demo-videotron', $item->id) . '" target="_blank"><small>Go To Videotron Display</small></a>
                                         <a class="dropdown-item py-1" href="' . route('events.demo-visitor', $item->id) . '" target="_blank"><small>Go To Visitor Display</small></a>
                                     </div>
-                                </div>
                             ';
                         }
                     }
+                    
+                    $livechat .= '</div>';
                     return $livechat;
                 })
                 ->addColumn('date_time', function ($item) {
@@ -159,13 +134,11 @@ class EventController extends Controller
                         $status_start_stop = '
                             <a href="javascript:void(0)"
                             class="btn btn-info"><small>Started</small></a>
-                            <hr style="border:1px solid #fff;margin:10px 0;">
                         ';
                     } else {
                         $status_start_stop = '
                             <a href="javascript:void(0)"
                             class="btn btn-warning"><small>Waiting</small></a>
-                            <hr style="border:1px solid #fff;margin:10px 0;">
                         ';
                     }
                     if ($item->flag_expired) {
