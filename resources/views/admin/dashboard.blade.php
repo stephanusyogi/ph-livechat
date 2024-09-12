@@ -2,6 +2,14 @@
 
 @section('head_title', 'Dashboard')
 
+@section('custom_css')
+<style>
+    #eventMonthChart, #adminChart , #adminChart{
+        height: 100px!important;
+    }
+</style>
+@endsection
+
 @section('main')
     <!-- container-scroller -->
     <div class="container-scroller">
@@ -42,7 +50,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Total Administrator</h4>
-                                    <canvas id="adminChart" style="height:250px"></canvas>
+                                    <canvas id="adminChart" style="height:100px"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +58,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Total Event</h4>
-                                    <canvas id="eventChart" style="height:250px"></canvas>
+                                    <canvas id="eventChart" style="height:100px"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +69,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Event By Month</h4>
-                                    <canvas id="eventMonthChart" style="height:130px"></canvas>
+                                    <canvas id="eventMonthChart"></canvas>
                                 </div>
                             </div>
                         </div>
