@@ -4,8 +4,8 @@
 
 @section('custom_css')
 <style>
-    #eventMonthChart, #adminChart , #adminChart{
-        height: 100px!important;
+    #eventMonthChart, #adminChart , #eventChart{
+        height: 200px!important;
     }
 </style>
 @endsection
