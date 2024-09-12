@@ -119,7 +119,7 @@
                         new Chart(ctx, {
                             type: 'doughnut',
                             data: data,
-                            // options: options
+                            options: options
                         });
                     }
                 });
