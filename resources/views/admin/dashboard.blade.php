@@ -7,9 +7,9 @@
     #adminChart , #eventChart{
         height: 350px!important;
     }
-    #eventMonthChart{
+    /* #eventMonthChart{
         height: 450px!important;
-    }
+    } */
 </style>
 @endsection
 
@@ -72,7 +72,9 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Event By Month</h4>
-                                    <canvas id="eventMonthChart"></canvas>
+                                    <div style="height: 350px;">
+                                        <canvas id="eventMonthChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -180,6 +182,8 @@
                         };
                         var options = {
                             responsive: true,
+                            maintainAspectRatio: false,
+                            aspectRatio: 2,
                             scales: {
                                 y: {
                                     beginAtZero: true
