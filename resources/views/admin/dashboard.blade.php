@@ -2,17 +2,6 @@
 
 @section('head_title', 'Dashboard')
 
-@section('custom_css')
-<style>
-    #adminChart , #eventChart{
-        height: 350px!important;
-    }
-    /* #eventMonthChart{
-        height: 450px!important;
-    } */
-</style>
-@endsection
-
 @section('main')
     <!-- container-scroller -->
     <div class="container-scroller">
@@ -53,7 +42,9 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Total Administrator</h4>
-                                    <canvas id="adminChart" style="height:100px"></canvas>
+                                    <div style="height:200px">
+                                        <canvas id="adminChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +52,9 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Total Event</h4>
-                                    <canvas id="eventChart" style="height:100px"></canvas>
+                                    <div style="height:200px">
+                                        <canvas id="eventChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -113,6 +106,8 @@
                         };
                         var options = {
                             responsive: true,
+                            maintainAspectRatio: false,
+                            aspectRatio: 2,
                             legend: {
                                 position: 'top',
                             },
@@ -146,6 +141,8 @@
                         };
                         var options = {
                             responsive: true,
+                            maintainAspectRatio: false,
+                            aspectRatio: 2,
                             legend: {
                                 position: 'top',
                             },
