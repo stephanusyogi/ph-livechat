@@ -50,7 +50,7 @@
         font-size: 16px;
         margin: 0;
         white-space: wrap;
-        word-break: break-all;
+        word-break: break-word;
     }
 
     .speech-wrapper .bubble .txt .timestamp {
